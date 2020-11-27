@@ -1,0 +1,9 @@
+{
+  "name": "glossaire",
+  "version": "1.0.0",
+  "description": "",
+  "main": "glossaire.js",
+  "scripts": {},
+  "author": "",
+  "license": "AGPL-3.0-or-later"
+}
