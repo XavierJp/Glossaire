@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "glossaire.js",
-  "scripts": {},
+  "scripts": {
+    "extractSigles": "node ./data/index.js",
+    "build": "npm run extractSigles && npx webpack --config webpack.config.js"
+  },
   "author": "",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
