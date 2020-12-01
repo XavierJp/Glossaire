@@ -15,6 +15,7 @@ import definitions from "./sigles";
 
   var wrapperId = "a" + uuidv4();
   var resultsId = "a" + uuidv4();
+  var searchTermId = "a" + uuidv4();
 
   function createMatch(text) {
     var match = document.createElement("span");
@@ -40,8 +41,8 @@ import definitions from "./sigles";
     var node = document.createElement("div");
     node.innerHTML = `
     <div>
-      <p class="glossary-definition"><b>${definition.term} :</b> ${definition.definition}</p>
-      <a href="definition.url_source"><i>Source : ${definition.source}</i></a>
+      <p class="glossary-definition">${definition.definition}</p>
+      <a href="${definition.url_source}"><i>Source : ${definition.source}</i></a>
     </div>`;
     return node;
   }
@@ -66,7 +67,7 @@ import definitions from "./sigles";
           top:0;
           height:100vh;
           width:100%;
-          max-width:320px;
+          max-width:350px;
           z-index:10000000;
           background-color: #071728;
           padding:20px 35px;
@@ -80,16 +81,27 @@ import definitions from "./sigles";
 
         #${wrapperId} > div > h2 {
           color: #f3f3f3;
-          font-size:1.3rem;
+          font-size:1.4rem;
           font-line: 2rem;
           padding-bottom: 10px;
-          margin: 10px 0 10px 0;
+          margin: 20px 0 20px 0;
           width:100%;
           border-bottom:1px dashed #536373;
         }
 
+        #${wrapperId} > div > h3 {
+          color: #f3f3f3;
+          font-size:1.6rem;
+          font-line: 2rem;
+          padding-bottom: 0;
+          margin: 10px 0 0 0;
+        }
+
         #${wrapperId} p {
           margin:10px 0 10px 0;
+        }
+        #${wrapperId} p.small {
+          font-size:0.9rem;
         }
 
         #${wrapperId} a {
@@ -99,29 +111,22 @@ import definitions from "./sigles";
         }
 
         #${wrapperId} .definitions {
-          margin:20px 0 20px 0;
+          margin:20px 0 10px 0;
+        }
+        #${wrapperId} .definitions p.glossary-definition {
+          margin:10px 0 5px 0;
         }
         #${wrapperId} .definitions > div:not(:last-of-type) {
           padding-bottom:20px;
           margin: 15px 0;
           border-bottom: 1px solid #373f48;
         }
-
-        #${wrapperId} input[type='text'] {
-          width:100%;
-          border-radius:2px;
-          margin:10px 0;
-          padding:3px 5px;
-          line-height: 1.8rem;
-          font-size:1rem;
-          border: none;
-          outline:none;
-        }
       </style>
       <div>
         <div class="close" onclick='window.glossaireInterface.hide()'><span>Fermer ✖︎</span></div>
-        <h2>Dictionnaire des sigles de l’administration</h2>
-        <p>Ce glossaire contient des définitions de termes, de sigles et d’acronymes communément utilisés sur les sites des services publics.</p>
+        <h2>Glossaire de l’administration</h2>
+        <h3 id="${searchTermId}">Terme</h3>
+        <p class="small"><i>Cet acronyme signifie, selon le contexte :</i></p>
         <div id="${resultsId}" class="definitions">
         </div>
       </div>
@@ -252,6 +257,9 @@ import definitions from "./sigles";
         }
         var resultsWrapper = document.getElementById(resultsId);
         resultsWrapper.innerHTML = "";
+
+        var term = document.getElementById(searchTermId);
+        term.innerHTML = searchTerm;
 
         var definitionResults = definitions.reduce((results, definition) => {
           if (definition.term === searchTerm) {
