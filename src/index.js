@@ -116,6 +116,7 @@ import definitions from "./sigles";
           color:#f3f3f3 !important;
           text-decoration:underline;
           font-size:0.9rem;
+          box-shadow: none !important;
         }
 
         #${wrapperId} .definitions {
