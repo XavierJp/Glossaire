@@ -42,7 +42,7 @@ import definitions from "./sigles";
     node.innerHTML = `
     <div>
       <p class="glossary-definition">${definition.definition}</p>
-      <a href="${definition.url_source}"><i>Source : ${definition.source}</i></a>
+      <a target="_blank" rel="roreferrer noopener" href="${definition.url_source}"><i>Source : ${definition.source}</i></a>
     </div>`;
     return node;
   }
@@ -57,6 +57,13 @@ import definitions from "./sigles";
         #${wrapperId} h2, #${wrapperId} p, #${wrapperId} a, #${wrapperId} input[type='text'] {
           padding:0;
           margin:0;
+          border: 0;
+          font-size: 100%;
+          font: inherit;
+          vertical-align: baseline;
+        }
+        #${wrapperId} :focus {
+          outline: 0;
         }
 
         #${wrapperId} {
