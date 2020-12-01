@@ -55,12 +55,12 @@ import definitions from "./sigles";
       `
       <style>
         #${wrapperId} h2, #${wrapperId} p, #${wrapperId} a, #${wrapperId} input[type='text'] {
-          padding:0;
-          margin:0;
-          border: 0;
-          font-size: 100%;
+          padding:0 !important;
+          margin:0 !important;
+          border: none !important;
+          font-size: 100% !important;
           font: inherit;
-          vertical-align: baseline;
+          vertical-align: baseline !important;
         }
         #${wrapperId} :focus {
           outline: 0;
