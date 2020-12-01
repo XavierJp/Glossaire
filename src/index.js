@@ -61,6 +61,7 @@ import definitions from "./sigles";
           font-size: 100% !important;
           font: inherit;
           vertical-align: baseline !important;
+          bx-shadow: none !important;
         }
         #${wrapperId} :focus {
           outline: 0;
