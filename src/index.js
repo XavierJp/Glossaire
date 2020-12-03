@@ -78,21 +78,21 @@ import definitions from "../data/sigles.json";
           max-width:350px;
           z-index:10000000;
           background-color: #071728;
-          padding:20px 35px;
         }
 
-        #${wrapperId} .close {
+        #${wrapperId} .glossaire-close {
           display:flex;
           justify-content:flex-end;
           cursor:pointer;
+          padding:20px 35px 0;
         }
 
-        #${wrapperId} > div > h2 {
+        #${wrapperId} > h2 {
+          padding:0 35px 20px;
           color: #f3f3f3;
           font-size:1.4rem;
           font-line: 2rem;
-          padding-bottom: 10px;
-          margin: 20px 0 20px 0;
+          margin: 20px 0 0 0;
           width:100%;
           border-bottom:1px dashed #536373;
         }
@@ -102,13 +102,17 @@ import definitions from "../data/sigles.json";
           font-size:1.6rem;
           font-line: 2rem;
           padding-bottom: 0;
-          margin: 10px 0 0 0;
+          margin: 0;
+        }
+
+        #${wrapperId} > div {
+          padding:20px 35px;
         }
 
         #${wrapperId} p {
           margin:10px 0 10px 0;
         }
-        #${wrapperId} p.small {
+        #${wrapperId} p.glossaire-small {
           font-size:0.9rem;
         }
 
@@ -119,26 +123,41 @@ import definitions from "../data/sigles.json";
           box-shadow: none !important;
         }
 
-        #${wrapperId} .definitions {
+        #${wrapperId} .glossaire-definitions {
           margin:20px 0 10px 0;
         }
-        #${wrapperId} .definitions p.glossary-definition {
+        #${wrapperId} .glossaire-definitions p.glossary-definition {
           margin:10px 0 5px 0;
         }
-        #${wrapperId} .definitions > div:not(:last-of-type) {
+        #${wrapperId} .glossaire-definitions > div:not(:last-of-type) {
           padding-bottom:20px;
           margin: 15px 0;
           border-bottom: 1px solid #373f48;
         }
+        #${wrapperId} .glossaire-definitions > div:not(:last-of-type) {
+          padding-bottom:20px;
+          margin: 15px 0;
+          border-bottom: 1px solid #373f48;
+        }
+        #${wrapperId} .glossaire-footer {
+          position:absolute;
+          bottom:0;
+          left:0;
+          padding: 15px 35px;
+          background-color: #071728;
+          border-top:1px dashed #536373;
+          width: 100%;
+        }
       </style>
+      <div class="glossaire-close" onclick='window.glossaireInterface.hide()'><span>Fermer ✖︎</span></div>
+      <h2>Glossaire de l’administration</h2>
       <div>
-        <div class="close" onclick='window.glossaireInterface.hide()'><span>Fermer ✖︎</span></div>
-        <h2>Glossaire de l’administration</h2>
         <h3 id="${searchTermId}">Terme</h3>
-        <p class="small"><i>Cet acronyme signifie, selon le contexte :</i></p>
-        <div id="${resultsId}" class="definitions">
+        <p class="glossaire-small"><i>Cet acronyme signifie, selon le contexte :</i></p>
+        <div id="${resultsId}" class="glossaire-definitions">
         </div>
       </div>
+      <div class="glossaire-footer"><a target="_blank" rel="noreferrer noopoener" href="https://xavierjp.github.io/glossaire/">Code source disponible sur Github</a></div>
     `;
     return wrapper;
   }
@@ -257,13 +276,27 @@ import definitions from "../data/sigles.json";
   function init() {
     var wrapper = createWrapper();
     var showGlossaire = false;
+    var lastSearchTerm = "";
 
     // expose Glossary manipulation functions
     window.glossaireInterface = {
       search: function (searchTerm) {
+        console.log();
+        if (
+          showGlossaire &&
+          lastSearchTerm === searchTerm &&
+          searchTerm !== ""
+        ) {
+          window.glossaireInterface.hide();
+          lastSearchTerm = searchTerm;
+          return;
+        }
         if (!showGlossaire) {
           window.glossaireInterface.show();
         }
+
+        lastSearchTerm = searchTerm;
+
         var resultsWrapper = document.getElementById(resultsId);
         resultsWrapper.innerHTML = "";
 
