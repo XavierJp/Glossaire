@@ -55,13 +55,13 @@ import definitions from "../data/sigles.json";
       `
       <style>
         #${wrapperId} h2, #${wrapperId} p, #${wrapperId} a, #${wrapperId} input[type='text'] {
-          padding:0 !important;
-          margin:0 !important;
-          border: none !important;
-          font-size: 100% !important;
+          padding:0;
+          margin:0;
+          border: none;
+          font-size: 100%;
           font: inherit;
-          vertical-align: baseline !important;
-          box-shadow: none !important;
+          vertical-align: baseline;
+          box-shadow: none;
         }
         #${wrapperId} :focus {
           outline: 0;
