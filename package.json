@@ -10,9 +10,15 @@
     "extract": "node ./data/index.js",
     "build": "npm run extract && npx webpack --config webpack.config.js"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run build"
+    }
+  },
   "author": "",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
+    "husky": "^4.2.3",
     "csv-parser": "^3.0.0",
     "webpack": "^5.8.0",
     "webpack-cli": "^4.2.0"
