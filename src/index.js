@@ -146,7 +146,7 @@ import definitions from "../data/sigles.json";
   var mostWanted = [
     ...new Set(
       definitions.sigles.map(function (definition) {
-        return definition.term;
+        return definition[0];
       })
     ),
   ];
