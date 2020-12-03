@@ -1,4 +1,4 @@
-import definitions from "./sigles";
+import definitions from "../data/sigles.json";
 
 (function glossaireInterfaceInit() {
   // https://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid/2117523#2117523
@@ -37,12 +37,12 @@ import definitions from "./sigles";
   function createText(text) {
     return document.createTextNode(text);
   }
-  function createResultNode(definition) {
+  function createResultNode(definition, source, url) {
     var node = document.createElement("div");
     node.innerHTML = `
     <div>
-      <p class="glossary-definition">${definition.definition}</p>
-      <a target="_blank" rel="roreferrer noopener" href="${definition.url_source}"><i>Source : ${definition.source}</i></a>
+      <p class="glossary-definition">${definition}</p>
+      <a target="_blank" rel="roreferrer noopener" href="${url}"><i>Source : ${source}</i></a>
     </div>`;
     return node;
   }
@@ -145,7 +145,7 @@ import definitions from "./sigles";
 
   var mostWanted = [
     ...new Set(
-      definitions.map(function (definition) {
+      definitions.sigles.map(function (definition) {
         return definition.term;
       })
     ),
@@ -270,12 +270,20 @@ import definitions from "./sigles";
         var term = document.getElementById(searchTermId);
         term.innerHTML = searchTerm;
 
-        var definitionResults = definitions.reduce((results, definition) => {
-          if (definition.term === searchTerm) {
-            results.push(createResultNode(definition));
-          }
-          return results;
-        }, []);
+        var definitionResults = definitions.sigles.reduce(
+          (results, definition) => {
+            if (definition[0] === searchTerm) {
+              results.push(
+                createResultNode(
+                  definition[1],
+                  ...definitions.sources[definition[2]]
+                )
+              );
+            }
+            return results;
+          },
+          []
+        );
 
         for (var i = 0; i < definitionResults.length; i++) {
           resultsWrapper.appendChild(definitionResults[i]);

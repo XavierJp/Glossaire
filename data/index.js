@@ -1,23 +1,30 @@
-(function() {
-  const sources = new Set();
-  const el = [];
+const csvToJson = require("convert-csv-to-json");
 
-  const fs = require('fs');
-  const data = fs.readFileSync('./data/sigles.csv', {
-    encoding: 'utf8',
-    flag: 'r',
-  });
-  data.split('\n').forEach((line, index) => {
-    const cells = line.split(',');
-    const key = cells[2] + cells[3];
-    sources.add(key);
-    el.push([cells[0], cells[1]]);
+function compress() {
+  const values = [];
+  const sources = {};
+
+  const sigles = [];
+
+  const fs = require("fs");
+  const data = csvToJson
+    .fieldDelimiter(",")
+    .getJsonFromCsv("./data/sigles.csv");
+
+  data.forEach((line) => {
+    const { source, url_source, term, definition } = line;
+    const id = source + url_source;
+    if (values.indexOf(id) === -1) {
+      values.push(id);
+      sources[values.length] = [source, url_source];
+    }
+    sigles.push([term, definition, values.indexOf(id)]);
   });
 
-  fs.writeFileSync('./data/sigles.json', el, {
-    encoding: 'utf8',
-    flag: 'w',
+  fs.writeFileSync("./data/sigles.json", JSON.stringify({ sources, sigles }), {
+    encoding: "utf8",
+    flag: "w",
   });
+}
 
-  console.log(sources.size);
-})();
+compress();

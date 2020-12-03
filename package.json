@@ -4,13 +4,15 @@
   "description": "",
   "main": "glossaire.js",
   "scripts": {
-    "extractSigles": "node ./data/index.js",
-    "build": "npm run extractSigles && npx webpack --config webpack.config.js"
+    "extract": "node ./data/index.js",
+    "build": "npm run extract && npx webpack --config webpack.config.js"
   },
   "author": "",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
+    "convert-csv-to-json": "^1.0.0",
     "webpack": "^5.8.0",
     "webpack-cli": "^4.2.0"
-  }
+  },
+  "dependencies": {}
 }
