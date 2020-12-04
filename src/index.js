@@ -157,7 +157,7 @@ import definitions from "../data/sigles.json";
         <div id="${resultsId}" class="glossaire-definitions">
         </div>
       </div>
-      <div class="glossaire-footer"><a target="_blank" rel="noreferrer noopoener" href="https://betagouv.github.io/glossaire/">Code source disponible sur Github</a></div>
+      <div class="glossaire-footer"><a target="_blank" rel="noreferrer noopoener" href="https://betagouv.github.io/glossaire">Code source disponible sur Github</a></div>
     `;
     return wrapper;
   }
