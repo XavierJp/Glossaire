@@ -179,11 +179,21 @@ import definitions from "../data/sigles.json";
     ),
   ].filter((e) => excludeSigles.indexOf(e) === -1);
 
+  // create an index of mostWanted for fast access
+  var mostWantedIndex = mostWanted.reduce((index, word, position) => {
+    index[word] = 1;
+    return index;
+  }, {});
+
   function parseText(text) {
     var textToParse = text;
     var parsedText = [];
 
     const regex = /[^a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ_-]/;
+
+    // a tester split  separateur
+    // a tester perf regex
+    // /w \b \b
 
     var index = {};
     var cursorPosition = 0;
@@ -191,7 +201,7 @@ import definitions from "../data/sigles.json";
       var isBoundary = text[i].match(regex);
       if (isBoundary) {
         var word = text.substring(cursorPosition, i);
-        if (word.length > 1) {
+        if (word.length > 1 && mostWantedIndex[word]) {
           if (!index[word]) {
             index[word] = [];
           }
@@ -200,10 +210,11 @@ import definitions from "../data/sigles.json";
         cursorPosition = i + 1;
       }
     }
-    // last char ?
+
+    // last character
     if (cursorPosition < text.length) {
       var word = text.substring(cursorPosition, i);
-      if (word.length > 1) {
+      if (word.length > 1 && mostWantedIndex[word]) {
         if (!index[word]) {
           index[word] = [];
         }
@@ -212,14 +223,14 @@ import definitions from "../data/sigles.json";
     }
 
     var matches = [];
-    for (var i = 0; i < mostWanted.length; i++) {
-      var word = mostWanted[i];
-      if (index[word]) {
-        for (var u = 0; u < index[word].length; u++) {
-          matches.push([index[word][u], word]);
-        }
+    var words = Object.keys(index);
+    for (var i = 0; i < words.length; i++) {
+      var matchedWord = words[i];
+      for (var u = 0; u < index[matchedWord].length; u++) {
+        matches.push([index[matchedWord][u], matchedWord]);
       }
     }
+    // why ?
     matches.sort((a, b) => (a[0] < b[0] ? -1 : 1));
 
     var lastPosition = 0;
@@ -378,6 +389,10 @@ import definitions from "../data/sigles.json";
     if (dynamicRepaint) {
       const observer = new MutationObserver(callback);
       observer.observe(document.body, observerOptions);
+    }
+
+    for (var i = 0; i < 10; i++) {
+      callback();
     }
 
     // let's do this !
