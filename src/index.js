@@ -13,6 +13,15 @@ import definitions from "../data/sigles.json";
     );
   }
 
+  var params = document.getElementById("glossaire-betalab-params") || null;
+  var dynamicRepaint = params && params.getAttribute("data-dynamic-repaint");
+  var excludeSigles = params
+    ? params.getAttribute("data-exclude-sigles").split(",")
+    : [];
+  var parseClasses = params
+    ? params.getAttribute("data-parse-classes").split(",")
+    : [];
+
   var wrapperId = "a" + uuidv4();
   var resultsId = "a" + uuidv4();
   var searchTermId = "a" + uuidv4();
@@ -168,7 +177,7 @@ import definitions from "../data/sigles.json";
         return definition[0];
       })
     ),
-  ];
+  ].filter((e) => excludeSigles.indexOf(e) === -1);
 
   function parseText(text) {
     var textToParse = text;
@@ -333,7 +342,6 @@ import definitions from "../data/sigles.json";
     };
 
     // add listners for dynamic app that might repaint the DOM (react, vue)
-
     window.parsingForSIGLE = false;
     var callback = function () {
       if (!window.parsingForSIGLE) {
@@ -349,10 +357,18 @@ import definitions from "../data/sigles.json";
           }
         }
 
-        console.log("Parsing DOM");
-        window.setTimeout(function () {
-          window.parsingForSIGLE = false;
-        }, 300);
+        if (parseClasses) {
+          for (var i = 0; i < parseClasses.length; i++) {
+            var elems = document.getElementsByClassName(parseClasses[i]);
+
+            for (var elIdx = 0; elIdx < elems.length; elIdx++) {
+              parseDOM(elems[elIdx]);
+            }
+          }
+        }
+
+        window.parsingForSIGLE = false;
+        // window.setTimeout(function () {}, 300);
       }
     };
     const observerOptions = {
@@ -361,8 +377,10 @@ import definitions from "../data/sigles.json";
       subtree: true,
     };
 
-    const observer = new MutationObserver(callback);
-    observer.observe(document.body, observerOptions);
+    if (dynamicRepaint) {
+      const observer = new MutationObserver(callback);
+      observer.observe(document.body, observerOptions);
+    }
 
     // let's do this !
     callback();
@@ -370,3 +388,14 @@ import definitions from "../data/sigles.json";
 
   init();
 })();
+
+// comportement de base => pas de listener
+{
+  /* <div
+id="glossaire-betalab-params"
+style="display: none"
+data-dynamic-repaint="true"
+data-exclude-sigles=""
+data-parse-classes=""
+/> */
+}

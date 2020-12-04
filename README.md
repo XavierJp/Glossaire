@@ -14,6 +14,12 @@ Pour tester le script de compression du dataset de dicosigles
 npm run extract
 ```
 
+Pour développer (watcher webpack)
+
+```
+npm run dev
+```
+
 Pour builder la lib
 
 ```

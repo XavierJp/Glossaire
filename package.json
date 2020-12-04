@@ -8,6 +8,7 @@
   "main": "glossaire.js",
   "scripts": {
     "extract": "node ./data/index.js",
+    "dev": "npx webpack --watch --config webpack.config.js",
     "build": "npm run extract && npx webpack --config webpack.config.js"
   },
   "husky": {

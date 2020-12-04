@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>Glossaire de l'administration</title>
-    <script src="./dist/main.js" async defer></script>
+    <!-- <script src="./dist/main.js" async defer></script> -->
     <link rel="stylesheet" href="./dist/all.min.css" />
   </head>
   <body>
@@ -79,10 +79,50 @@
         id="text-input-text"
         name="text-input-text"
       />
+      <h4>Paramétrisation</h4>
       <p>
-        La librairie est encore au stade de prototype,
-        <b>à ne pas utiliser en production !</b>
-        <br />
+        Vous pouvez <b>paramétrer</b> la librairie en ajoutant la ligne suivante
+        dans le <b>&lt;body&gt;</b> de votre page web :
+      </p>
+      <input
+        type="text"
+        value='<div id="glossaire-betalab-params" style="display: none" data-exclude-sigles="SIGLE1,SIGLE2,SIGLE3" data-parse-classes="class1,class2" data-dynamic-repaint="true" />'
+        class="rf-input"
+        id="text-input-text"
+        name="text-input-text"
+      />
+      <div>
+        <p>
+          <b>data-exclude-sigles :</b> exclure un ou plusieurs sigles non
+          pertinents (par exemple : Allocation de Parent Isolé (API) n'est pas
+          pertinent sur api.gouv.fr.
+        </p>
+        <p>
+          <b>data-parse-classes :</b> forcer l'execution du script sur une ou
+          plusieurs classe de votre document (utile pour faire passer le script
+          sur d'autres éléments que <b>&lt;p&gt;</b>, <b>&lt;li&gt;</b> et
+          <b>&lt;tr&gt;</b>).
+        </p>
+      </div>
+      <div class="rf-callout">
+        <p class="rf-callout__text">
+          <b>⚠️ Danger Zone ☢️</b><br />
+          N'activez cette dernière feature que si vous êtes certain de bien en
+          comprendre les implications.
+        </p>
+        <p>
+          <b>data-dynamic-repaint :</b> forcer l'execution du script à chaque
+          modification de la page. Indispensable pour les Single Page
+          applications (React, Angular et Vue). Vide par défault, c'est a dire
+          que de base le script ne s'execute qu'une seule fois après le rendu de
+          la page.
+        </p>
+      </div>
+      <h3>Et le SEO ?</h3>
+      <p>
+        Dur a dire. L'ensemble de la lib pèse tout de même 100ko car elle inclut
+        l'ensemble des sigles du dataset dicosigles (1mo de données sous format
+        CSV !). L'impact devrait être limité cependant.
       </p>
       <h3>Contribuer</h3>
       <p>
@@ -94,7 +134,6 @@
           >code source sur Github.</a
         >
       </p>
-      <!-- <h2>Un problème ? Une question ?</h2> -->
     </div>
     <footer class="rf-footer" role="contentinfo" id="">
       <div class="rf-container">
