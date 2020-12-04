@@ -16,10 +16,10 @@ import definitions from "../data/sigles.json";
   var params = document.getElementById("glossaire-betalab-params") || null;
   var dynamicRepaint = params && params.getAttribute("data-dynamic-repaint");
   var excludeSigles = params
-    ? params.getAttribute("data-exclude-sigles").split(",")
+    ? (params.getAttribute("data-exclude-sigles") || "").split(",")
     : [];
   var parseClasses = params
-    ? params.getAttribute("data-parse-classes").split(",")
+    ? (params.getAttribute("data-parse-classes") || "").split(",")
     : [];
 
   var wrapperId = "a" + uuidv4();
@@ -290,7 +290,6 @@ import definitions from "../data/sigles.json";
     // expose Glossary manipulation functions
     window.glossaireInterface = {
       search: function (searchTerm) {
-        console.log();
         if (
           showGlossaire &&
           lastSearchTerm === searchTerm &&
@@ -346,6 +345,7 @@ import definitions from "../data/sigles.json";
     var callback = function () {
       if (!window.parsingForSIGLE) {
         window.parsingForSIGLE = true;
+        console.time("parse");
 
         var eligibleTags = ["P", "LI", "TR"];
 
@@ -366,9 +366,9 @@ import definitions from "../data/sigles.json";
             }
           }
         }
+        console.timeEnd("parse");
 
         window.parsingForSIGLE = false;
-        // window.setTimeout(function () {}, 300);
       }
     };
     const observerOptions = {
@@ -388,14 +388,3 @@ import definitions from "../data/sigles.json";
 
   init();
 })();
-
-// comportement de base => pas de listener
-{
-  /* <div
-id="glossaire-betalab-params"
-style="display: none"
-data-dynamic-repaint="true"
-data-exclude-sigles=""
-data-parse-classes=""
-/> */
-}

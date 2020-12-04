@@ -2,6 +2,7 @@
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Glossaire de l'administration</title>
     <script src="./dist/main.js" async defer></script>
     <link rel="stylesheet" href="./dist/all.min.css" />
@@ -74,9 +75,8 @@
       </p>
       <input
         type="text"
-        value='<script src=https://betagouv.github.io/glossaire/dist/main.js" async defer></script>'
+        value='<script src="https://betagouv.github.io/glossaire/dist/main.js" async defer />'
         class="rf-input"
-        id="text-input-text"
         name="text-input-text"
       />
       <h4>Paramétrisation</h4>
@@ -88,7 +88,6 @@
         type="text"
         value='<div id="glossaire-betalab-params" style="display: none" data-exclude-sigles="SIGLE1,SIGLE2,SIGLE3" data-parse-classes="class1,class2" data-dynamic-repaint="true" />'
         class="rf-input"
-        id="text-input-text"
         name="text-input-text"
       />
       <div>
@@ -120,10 +119,18 @@
       </div>
       <h3>Et le SEO ?</h3>
       <p>
-        Dur a dire. L'ensemble de la lib pèse tout de même 100ko car elle inclut
+        Dur à dire. L'ensemble de la lib pèse tout de même 100ko car elle inclut
         l'ensemble des sigles du dataset dicosigles (1mo de données sous format
-        CSV !). L'impact devrait être limité cependant.
+        CSV !).
       </p>
+      <p>Aujourd'hui il y a deux goulots d'étranglement :</p>
+      <ul>
+        <li>le téléchargement de la lib : meilleure compression ? Un CDN ?</li>
+        <li>
+          le parsing de la page : pure question de perf (WebAssembly 😱 ?)
+        </li>
+      </ul>
+      <p>Toutes les idées d'améliorations sont les bienvenues ! 👇</p>
       <h3>Contribuer</h3>
       <p>
         Vous pouvez accèder au
