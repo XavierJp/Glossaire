@@ -345,7 +345,6 @@ import definitions from "../data/sigles.json";
     var callback = function () {
       if (!window.parsingForSIGLE) {
         window.parsingForSIGLE = true;
-        console.time("parse");
 
         var eligibleTags = ["P", "LI", "TR"];
 
@@ -366,7 +365,6 @@ import definitions from "../data/sigles.json";
             }
           }
         }
-        console.timeEnd("parse");
 
         window.parsingForSIGLE = false;
       }
