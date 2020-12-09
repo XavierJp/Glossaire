@@ -111,15 +111,12 @@ export function createWrapperNode(wrapperId, searchTermId, resultsId) {
         }
 
         #${wrapperId} .glossaire-definitions > div:not(:last-of-type) {
-          padding-bottom:20px;
+          padding-bottom: 20px;
           margin: 15px 0;
           border-bottom: 1px solid #373f48;
         }
-
-        #${wrapperId} .glossaire-definitions > div:not(:last-of-type) {
-          padding-bottom:20px;
-          margin: 15px 0;
-          border-bottom: 1px solid #373f48;
+        #${wrapperId} .glossaire-definitions > div:last-of-type {
+          margin-bottom: 50px;
         }
         #${wrapperId} .glossaire-footer {
           position:absolute;
