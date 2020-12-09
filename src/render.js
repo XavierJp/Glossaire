@@ -54,6 +54,10 @@ export function createWrapperNode(wrapperId, searchTermId, resultsId) {
           z-index:10000000;
           background-color: #071728;
         }
+        #${wrapperId} * {
+          box-sizing: border-box;
+        }
+
         #${wrapperId} > div:not(.glossaire-footer) {
           height:100vh;
           overflow-x:auto;
