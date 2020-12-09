@@ -129,7 +129,7 @@ export function createWrapperNode(wrapperId, searchTermId, resultsId) {
           padding: 15px 35px;
           background-color: #071728;
           border-top:1px dashed #536373;
-          width: 280px;
+          width: 100%;
         }
       </style>
       <div>
