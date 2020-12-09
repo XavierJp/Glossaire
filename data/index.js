@@ -5,7 +5,7 @@ function compress() {
   const values = [];
   const sources = {};
 
-  const sigles = [];
+  const definitions = [];
 
   fs.createReadStream("./data/sigles.csv")
     .pipe(csv())
@@ -16,12 +16,12 @@ function compress() {
         values.push(id);
         sources[values.length] = [source, url_source];
       }
-      sigles.push([term, definition, values.indexOf(id)]);
+      definitions.push([term, definition, values.indexOf(id)]);
     })
     .on("end", () => {
       fs.writeFileSync(
         "./data/sigles.json",
-        JSON.stringify({ sources, sigles }),
+        JSON.stringify({ sources, definitions }),
         {
           encoding: "utf8",
           flag: "w",
